@@ -8,11 +8,11 @@ const Layout: React.FC = ( { children } ): JSX.Element => {
 
   const [ isOpen, setIsOpen ] = useState<boolean>( false );
 
-  const toggleMenuHandler = () => {
+  const toggleMenuHandler = (): void => {
     setIsOpen( ( prevState: boolean ) => !prevState );
   };
 
-  const closeHandler = () => {
+  const closeHandler = (): void => {
     setIsOpen( false );
   };
 
@@ -20,7 +20,6 @@ const Layout: React.FC = ( { children } ): JSX.Element => {
     <div className={styles.Layout}>
       <Drawer isOpen={isOpen} onClose={closeHandler} />
       <MenuToggle isOpen={isOpen} onClick={toggleMenuHandler} />
-
       <main>
         {children}
       </main>
