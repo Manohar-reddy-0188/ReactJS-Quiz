@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../UI/Button/Button';
 import styles from './FinishQuiz.module.scss';
+
 
 const FinishQuiz = ( { quizs, results, onRetry } ) => {
 
@@ -34,7 +36,9 @@ const FinishQuiz = ( { quizs, results, onRetry } ) => {
       <p>{successCount} of {quizs.length}</p>
       <div>
         <Button type='primary' onClick={onRetry}>Repeat</Button>
-        <Button type='success' onClick={onRetry}>Tests</Button>
+        <Link to='/'>
+          <Button type='success'>Tests</Button>
+        </Link>
       </div>
     </div >
   );

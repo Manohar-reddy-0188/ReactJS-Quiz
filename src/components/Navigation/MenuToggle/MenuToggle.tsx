@@ -2,7 +2,12 @@ import React from 'react';
 import styles from './MenuToggle.module.scss';
 
 
-const MenuToggle = ( { isOpen, onClick } ) => {
+export interface IMenuToggle {
+  isOpen: boolean;
+  onClick: () => void;
+}
+
+const MenuToggle: React.FC<IMenuToggle> = ( { isOpen, onClick } ): JSX.Element => {
 
   const classes = [
     styles.MenuToggle,

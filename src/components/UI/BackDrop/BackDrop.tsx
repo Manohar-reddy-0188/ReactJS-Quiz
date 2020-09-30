@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from './BackDrop.module.scss';
 
-const BackDrop = ( { onClick } ) => {
+
+export interface IBackDrop {
+  onClick: () => void;
+}
+
+const BackDrop: React.FC<IBackDrop> = ( { onClick } ): JSX.Element => {
   return (
     <div className={styles.BackDrop} onClick={onClick}>
     </div>
