@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { useState } from 'react';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
@@ -34,12 +35,33 @@ const Auth = () => {
   } );
   const [ isFormValid, setIsFormValid ] = useState<boolean>( false );
 
-  const handlerLogin = (): void => {
+  const handlerLogin = async (): Promise<any> => {
+    const authData = {
+      email: controls.email.value,
+      password: controls.password.value,
+      returnSecureToken: true
+    };
+    try {
+      const response = await Axios.post( 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDJJvXncI_Auiut7yycgOsvuC2bqyg0bv4', authData );
+      console.log( response );
+    } catch ( error ) {
+      console.log( error );
+    }
 
   };
 
-  const handlerRegistration = (): void => {
-
+  const handlerRegistration = async (): Promise<any> => {
+    const authData = {
+      email: controls.email.value,
+      password: controls.password.value,
+      returnSecureToken: true
+    };
+    try {
+      const response = await Axios.post( 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDJJvXncI_Auiut7yycgOsvuC2bqyg0bv4', authData );
+      console.log( response );
+    } catch ( error ) {
+      console.log( error );
+    }
   };
 
   const handlerChange = ( event, name ): void => {
@@ -79,7 +101,7 @@ const Auth = () => {
       <div>
         <h1>Authorization</h1>
 
-        <form className={styles.AuthForm}>
+        <form className={styles.AuthForm} onSubmit={event => event.preventDefault()}>
           {renderInputs()}
           <Button
             type="success"

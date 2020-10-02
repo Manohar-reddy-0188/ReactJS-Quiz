@@ -1,6 +1,13 @@
 import is from 'is_js';
 
-export function createControl( config: object, validation: object ): object {
+
+export interface IValidation {
+  required?: boolean;
+  email?: boolean;
+  minLength?: number;
+}
+
+export function createControl( config: object, validation: IValidation ): object {
   return {
     ...config,
     validation,
@@ -18,7 +25,7 @@ export function createOptionControl( number: number ) {
   }, { required: true } );
 }
 
-export function validate( value: string, validationRules: object ): boolean {
+export function validate( value: string, validationRules: IValidation ): boolean {
 
   if ( !validationRules ) {
     return true;
