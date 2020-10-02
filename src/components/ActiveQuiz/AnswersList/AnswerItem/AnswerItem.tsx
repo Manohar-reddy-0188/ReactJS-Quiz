@@ -10,7 +10,7 @@ const AnswerItem = ( { answer, state, onAnswerHandler } ) => {
   }
 
   return (
-    <li className={classArray.join( ' ' )} onClick={() => onAnswerHandler( answer.id )}>
+    <li className={classArray.join( ' ' )} onClick={() => { onAnswerHandler( answer.id ); }}>
       { answer.text}
     </li>
   );

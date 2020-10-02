@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Axios from '../../axios/Axios-quiz';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Select from '../../components/UI/Select/Select';
@@ -43,8 +44,13 @@ const QuizCreator = () => {
 
   const handlerCreateTest = ( event ): void => {
     event?.preventDefault();
-
-    console.log( quiz );
+    Axios.post( 'quizes.json', quiz )
+      .then( response => {
+        setQuiz( [] );
+        setRightAnswerId( 3 );
+        setControls( createForm() );
+      } )
+      .catch( error => console.log( error ) );
   };
 
   const handlerChange = ( event: Event, name: string ): void => {
@@ -58,8 +64,6 @@ const QuizCreator = () => {
 
     setControls( prevState => ( { ...prevState, [ name ]: control } ) );
     setIsFormValid( isValid );
-
-    console.log( controls, isValid );
   };
 
   const handlerSelect = ( event: Event ): void => {
