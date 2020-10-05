@@ -10,18 +10,23 @@ export interface ILink {
   exact: boolean;
 }
 
-const links: ILink[] = [
-  { to: '/', label: 'Home Page', exact: true },
-  { to: '/auth', label: 'Authentication', exact: false },
-  { to: '/quiz-creator', label: 'Create Quiz', exact: false }
-];
-
 export interface IDrawer {
   isOpen: boolean;
+  isAuth: boolean;
   onClose: () => void;
 }
 
-const Drawer: React.FC<IDrawer> = ( { isOpen, onClose } ) => {
+const Drawer: React.FC<IDrawer> = ( { isOpen, isAuth, onClose } ) => {
+
+  const links: ILink[] = [];
+
+  if ( isAuth ) {
+    links.push( { to: '/', label: 'Home Page', exact: true } );
+    links.push( { to: '/logout', label: 'LogOut', exact: false } );
+    links.push( { to: '/quiz-creator', label: 'Create Quiz', exact: false } );
+  } else {
+    links.push( { to: '/auth', label: 'Authentication', exact: false } );
+  }
 
   const renderLinks = () => {
     return links.map( ( link, index ) => {
