@@ -1,11 +1,13 @@
-import Axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import { validate } from '../../form/FormFramework';
+import { login, register } from '../../redux/actions/authActions';
 import styles from './Auth.module.scss';
 
-const Auth = () => {
+
+const Auth: React.FC = (): JSX.Element => {
 
   const [ controls, setControls ] = useState<object>( {
     email: {
@@ -29,39 +31,19 @@ const Auth = () => {
       touched: false,
       validation: {
         required: true,
-        minLength: 6
+        minLength: 5
       }
     }
   } );
   const [ isFormValid, setIsFormValid ] = useState<boolean>( false );
+  const dispatch = useDispatch();
 
-  const handlerLogin = async (): Promise<any> => {
-    const authData = {
-      email: controls.email.value,
-      password: controls.password.value,
-      returnSecureToken: true
-    };
-    try {
-      const response = await Axios.post( 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDJJvXncI_Auiut7yycgOsvuC2bqyg0bv4', authData );
-      console.log( response );
-    } catch ( error ) {
-      console.log( error );
-    }
-
+  const handlerLogin = (): void => {
+    dispatch( login( controls.email.value, controls.password.value ) );
   };
 
-  const handlerRegistration = async (): Promise<any> => {
-    const authData = {
-      email: controls.email.value,
-      password: controls.password.value,
-      returnSecureToken: true
-    };
-    try {
-      const response = await Axios.post( 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDJJvXncI_Auiut7yycgOsvuC2bqyg0bv4', authData );
-      console.log( response );
-    } catch ( error ) {
-      console.log( error );
-    }
+  const handlerRegistration = (): void => {
+    dispatch( register( controls.email.value, controls.password.value ) );
   };
 
   const handlerChange = ( event, name ): void => {

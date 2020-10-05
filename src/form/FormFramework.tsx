@@ -42,7 +42,7 @@ export function validate( value: string, validationRules: IValidation ): boolean
   }
 
   if ( validationRules.minLength ) {
-    isValid = value.trim().length >= validationRules.minLength && isValid;
+    isValid = value.length >= validationRules.minLength && isValid;
   }
 
   return isValid;

@@ -1,29 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import Axios from '../../axios/Axios-quiz';
 import Loader from '../../components/UI/Loader/Loader';
+import { requestQuizes } from '../../redux/actions/quizActions';
+import { IRootState } from '../../redux/reducers/rootReducer';
 import styles from './QuizList.module.scss';
 
 
 const QuizList = () => {
 
-  const [ quizList, setQuizList ] = useState<object[]>( [] );
-  const [ isLoading, setIsLoading ] = useState<boolean>( true );
+  const quizList = useSelector( ( state: IRootState ) => state.quizs.quizList );
+  const isLoading = useSelector( ( state: IRootState ) => state.quizs.isLoading );
+  const dispatch = useDispatch();
 
   useEffect( () => {
-    Axios.get( 'quizes.json' )
-      .then( response => {
-        const quizes: object[] = [];
-        Object.keys( response.data ).forEach( ( id, index ) => {
-          quizes.push( {
-            id,
-            name: `Quiz №${ index + 1 }`
-          } );
-        } );
-        setQuizList( quizes );
-        setIsLoading( false );
-      } )
-      .catch( error => console.log( error ) );
+    dispatch( requestQuizes() );
   }, [] );
 
   const renderQuiz = () => {
